@@ -55,7 +55,7 @@ jobs:
           echo "build_time=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
       - 
         name: 发布Release
-        uses: softprops/action-gh-release@v1
+        uses: ncipollo/release-action@main
         with:
           tag_name: ${{ needs.check.outputs.ver }}
           token: ${{ secrets.s1 }}
