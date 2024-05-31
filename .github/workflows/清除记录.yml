@@ -16,6 +16,5 @@ jobs:
        name: 删除工作流
        uses: GitRML/delete-workflow-runs@main
        with:
-        token: ${{ secrets.GITHUB_TOKEN }}
         retain_days: 2
         keep_minimum_runs: 0
