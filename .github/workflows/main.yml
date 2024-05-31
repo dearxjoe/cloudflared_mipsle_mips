@@ -58,7 +58,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ needs.check.outputs.ver }}
-          token: ${{ secrets.s2 }}
+          token: ${{ s2 }}
           body: |
            > ### 编译时间 ：${{ env.build_time }}
             ###请注意以下cloudflaer文件仅适用于mipsel架构linux环境下使用！###
@@ -70,6 +70,6 @@ jobs:
        name: 删除工作流
        uses: GitRML/delete-workflow-runs@main
        with:
-        token: ${{ secrets.s2 }}
+        token: ${{ s2 }}
         retain_days: 2
         keep_minimum_runs: 0
