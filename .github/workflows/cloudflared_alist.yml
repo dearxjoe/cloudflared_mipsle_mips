@@ -59,9 +59,9 @@ jobs:
           echo $(md5sum cloudflared-linux-mips | awk '{print $1;}') >MD5_cloudflared-linux-mips.txt
 
           # dowload Alist V3.35.0 
-          wget https://github.com/alist-org/alist/releases/download/v3.35.0/alist-linux-mips64le.tar.gz
-          tar -xvf alist-linux-mips64le.tar.gz
-          mv alist-linux-mips64le/alist alist_mipsle
+          wget https://github.com/alist-org/alist/releases/download/v3.35.0/alist-linux-mipsle.tar.gz
+          tar -xvf alist-linux-mipsle.tar.gz
+          mv alist alist_mipsle
           /opt/st/strip alist_mipsle
           /opt/upx-3.95-amd64_linux/upx --lzma --best alist_mipsle
           echo $(md5sum alist_mipsle | awk '{print $1;}') >MD5_alist_mipsle.txt
