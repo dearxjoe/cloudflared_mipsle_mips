@@ -57,6 +57,7 @@ jobs:
         name: 发布Release
         uses: softprops/action-gh-release@v1
         with:
+          token: ${{ secrets.s1 }}
           tag_name: ${{ needs.check.outputs.ver }}
           body: |
            > ### 编译时间 ：${{ env.build_time }}
@@ -69,6 +70,6 @@ jobs:
        name: 删除工作流
        uses: GitRML/delete-workflow-runs@main
        with:
-        personal_token: ${{ secrets.s2 }}
+        token: ${{ secrets.s1 }}
         retain_days: 2
         keep_minimum_runs: 0
