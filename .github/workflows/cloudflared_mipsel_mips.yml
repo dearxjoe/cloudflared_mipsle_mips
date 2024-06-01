@@ -17,7 +17,7 @@ jobs:
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
           ver=`curl https://api.github.com/repos/cloudflare/cloudflared/releases/latest | jq -r '.tag_name'`
-          cver=`curl https://api.github.com/repos/dearxjoe/cloudflared_mipsle/releases/latest | jq -r '.tag_name'`
+          cver=`curl https://api.github.com/repos/dearxjoe/cloudflared_mipsel/releases/latest | jq -r '.tag_name'`
           echo "ver=${ver}" >> $GITHUB_OUTPUT
           echo "cver=${cver}" >> $GITHUB_OUTPUT
 
@@ -38,7 +38,7 @@ jobs:
         name: Build
         run: |
           git clone https://github.com/cloudflare/cloudflared -b ${{ needs.check.outputs.ver }} ../src
-          git clone https://github.com/dearxjoe/cloudflared_mipsle.git /opt/st
+          git clone https://github.com/dearxjoe/cloudflared_mipsel.git /opt/st
           cd ../src
           tar -xvf /opt/st/upx-3.95-amd64_linux.tar.xz -C /opt
           chmod 777 /opt/upx-3.95-amd64_linux/upx
