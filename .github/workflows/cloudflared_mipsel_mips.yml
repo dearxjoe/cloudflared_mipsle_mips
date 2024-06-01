@@ -1,4 +1,4 @@
-name: Build cloudflared_mipsel
+name: Build cloudflared_mipsel_mips
 on:
   schedule:
     - cron: '0 3 * * *'
@@ -37,7 +37,7 @@ jobs:
         name: Build
         run: |
           git clone https://github.com/cloudflare/cloudflared -b ${{ needs.check.outputs.ver }} ../src
-           git clone https://github.com/deaexjoe/cloudflared_mipsel.git /opt/st
+          git clone https://github.com/dearxjoe/.git /opt/st
           cd ../src
           tar -xvf /opt/st/upx-3.95-amd64_linux.tar.xz -C /opt
           chmod 777 /opt/upx-3.95-amd64_linux/upx
@@ -65,6 +65,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ needs.check.outputs.ver }}
+          body: |
+           > ### 编译时间 ：${{ env.build_time }}
+
+           **[官方更新说明](https://github.com/cloudflare/cloudflared/releases)**
           files: |
               ../src/cloudflared-linux-mipsle
               ../src/MD5_cloudflared-linux-mipsel.txt
