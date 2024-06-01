@@ -71,7 +71,7 @@ jobs:
 
            **[官方更新说明](https://github.com/cloudflare/cloudflared/releases)**
           files: |
-              ../src/cloudflared-linux-mipsle
+              ../src/cloudflared-linux-mipsel
               ../src/MD5_cloudflared-linux-mipsel.txt
               ../src/cloudflared-linux-mips
               ../src/MD5_cloudflared-linux-mips.txt
