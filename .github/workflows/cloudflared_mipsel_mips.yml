@@ -70,6 +70,7 @@ jobs:
            > ### 编译时间 ：${{ env.build_time }}
 
            **[官方更新说明](https://github.com/cloudflare/cloudflared/releases)**
+           本项目编译出的cloudflared二进制文件已经过lzma压缩，比原官方编译出的文件体积小很多，适合路由器等低内存的linux环境运行。如老毛子padavan固件。
           files: |
               ../src/cloudflared-linux-mipsel
               ../src/MD5_cloudflared-linux-mipsel.txt
