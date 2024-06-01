@@ -46,7 +46,7 @@ jobs:
 
           # Build for mipsle
           GOOS=linux GOARCH=mipsle GOMIPS=softfloat make cloudflared
-          mv cloudflared cloudflared-linux-mipsle
+          mv cloudflared cloudflared-linux-mipsel
           /opt/st/strip cloudflared-linux-mipsel
           /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-mipsel
           echo $(md5sum cloudflared-linux-mipsel | awk '{print $1;}') >MD5_cloudflared-linux-mipsel.txt
