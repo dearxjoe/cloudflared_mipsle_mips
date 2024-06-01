@@ -55,10 +55,9 @@ jobs:
           echo "build_time=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
       - 
         name: 发布Release
-        uses: ncipollo/release-action@main
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ needs.check.outputs.ver }}
-          personal_token: ${{ secrets.s2 }}
           body: |
            > ### 编译时间 ：${{ env.build_time }}
             ###请注意以下cloudflaer文件仅适用于mipsel架构linux环境下使用！###
