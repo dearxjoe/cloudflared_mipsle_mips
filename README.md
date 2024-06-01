@@ -1,13 +1,13 @@
 # cloudflared_mipsle_mips
 根据官方文档自编译Cloudflared、Alist二进制可执行文件，适用于linux环境下mipsle、mips架构，如MTK7621路由器pavadanl固件。 
 <p align="center">
-<a href="https://github.com/dearxjoe/cloudflared_mipsel/releases"><img src="https://img.shields.io/github/downloads/dearxjoe/cloudflared_mipsel/total">
-<a href="https://github.com/dearxjoe/cloudflared_mipsel/graphs/contributors"><img src="https://img.shields.io/github/contributors-anon/dearxjoe/cloudflared_mipsel">
-<a href="https://github.com/dearxjoe/cloudflared_mipsel/releases/"><img src="https://img.shields.io/github/release/dearxjoe/cloudflared_mipsel">
-<a href="https://github.com/dearxjoe/cloudflared_mipsel/issues"><img src="https://img.shields.io/github/issues-raw/dearxjoe/cloudflared_mipsel">
-<a href="https://github.com/dearxjoe/cloudflared_mipsel/discussions"><img src="https://img.shields.io/github/discussions/dearxjoe/cloudflared_mipsel">
-<a href="GitHub repo size"><img src="https://img.shields.io/github/repo-size/dearxjoe/cloudflared_mipsel?color=red&style=flat-square">
-<a href="https://github.com/dearxjoe/cloudflared_mipsel/actions?query=workflow%3ABuild"><img src="https://img.shields.io/github/actions/workflow/status/dearxjoe/cloudflared_mipsel/build.yml?branch=main" alt="Build status">
+<a href="https://github.com/dearxjoe/cloudflared_mipsle_mips/releases"><img src="https://img.shields.io/github/downloads/dearxjoe/cloudflared_mipsle_mips/total">
+<a href="https://github.com/dearxjoe/cloudflared_mipsle_mips/graphs/contributors"><img src="https://img.shields.io/github/contributors-anon/dearxjoe/cloudflared_mipsle_mips">
+<a href="https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/"><img src="https://img.shields.io/github/release/dearxjoe/cloudflared_mipsle_mips">
+<a href="https://github.com/dearxjoe/cloudflared_mipsle_mips/issues"><img src="https://img.shields.io/github/issues-raw/dearxjoe/cloudflared_mipsle_mips">
+<a href="https://github.com/dearxjoe/cloudflared_mipsle_mips/discussions"><img src="https://img.shields.io/github/discussions/dearxjoe/cloudflared_mipsle_mips">
+<a href="GitHub repo size"><img src="https://img.shields.io/github/repo-size/dearxjoe/cloudflared_mipsle_mips?color=red&style=flat-square">
+<a href="https://github.com/dearxjoe/cloudflared_mipsle_mips/actions?query=workflow%3ABuild"><img src="https://img.shields.io/github/actions/workflow/status/dearxjoe/cloudflared_mipsle_mips/build.yml?branch=main" alt="Build status">
 </p>
 
 本项目编译出的cloudflared二进制文件已经过lzma压缩，比原官方编译出的文件体积小很多，适合路由器等低内存的linux环境运行。如老毛子padavan固件。
