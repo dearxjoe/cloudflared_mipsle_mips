@@ -1,0 +1,72 @@
+name: Build cloudflared_mipsel
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      ver: ${{ steps.getversion.outputs.ver }}
+      cver: ${{ steps.getversion.outputs.cver }}
+    steps:
+      -
+        name: Get version
+        id: getversion
+        run: |
+          ver=`curl https://api.github.com/repos/cloudflare/cloudflared/releases/latest | jq -r '.tag_name'`
+          cver=`curl https://api.github.com/repos/dearxjoe/cloudflared_mipsle/releases/latest | jq -r '.tag_name'`
+          echo "ver=${ver}" >> $GITHUB_OUTPUT
+          echo "cver=${cver}" >> $GITHUB_OUTPUT
+
+  build:
+    runs-on: ubuntu-latest
+    needs: check
+    if: ${{ needs.check.outputs.ver != needs.check.outputs.cver }}
+    steps:
+      - 
+        name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.22.3
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      - 
+        name: Build
+        run: |
+          git clone https://github.com/cloudflare/cloudflared -b ${{ needs.check.outputs.ver }} ../src
+           git clone https://github.com/deaexjoe/cloudflared_mipsel.git /opt/st
+          cd ../src
+          tar -xvf /opt/st/upx-3.95-amd64_linux.tar.xz -C /opt
+          chmod 777 /opt/upx-3.95-amd64_linux/upx
+          chmod 777 /opt/st/strip
+
+          # Build for mipsle
+          GOOS=linux GOARCH=mipsle GOMIPS=softfloat make cloudflared
+          mv cloudflared cloudflared-linux-mipsle
+          /opt/st/strip cloudflared-linux-mipsel
+          /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-mipsel
+          echo $(md5sum cloudflared-linux-mipsel | awk '{print $1;}') >MD5_cloudflared-linux-mipsel.txt
+
+          # Build for mips
+          GOOS=linux GOARCH=mips GOMIPS=softfloat make cloudflared
+          mv cloudflared cloudflared-linux-mips    
+          /opt/st/strip cloudflared-linux-mips
+          /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-mips
+          echo $(md5sum cloudflared-linux-mips | awk '{print $1;}') >MD5_cloudflared-linux-mips.txt
+          
+          echo "build_time=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
+          
+          
+      - 
+        name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ needs.check.outputs.ver }}
+          files: |
+              ../src/cloudflared-linux-mipsle
+              ../src/MD5_cloudflared-linux-mipsel.txt
+              ../src/cloudflared-linux-mips
+              ../src/MD5_cloudflared-linux-mips.txt
