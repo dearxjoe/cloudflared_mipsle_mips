@@ -1,4 +1,4 @@
-name: Build cloudflared_mipsel_mips
+name: Build cloudflared_mipsle_mips,alist_mipsle
 on:
   schedule:
     - cron: '0 3 * * *'
