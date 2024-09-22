@@ -1,5 +1,5 @@
 # cloudflared_mipsle_mips
-根据官方文档自编译Cloudflared、Alist二进制可执行文件，适用于linux环境下mipsle、mips架构，如MTK7621路由器pavadanl固件。 
+根据官方文档自编译Cloudflared、Alist二进制可执行文件，适用于linux环境下mipsle、mips架构，如MTK7621路由器padavan固件。 
 <p align="center">
 <a href="https://github.com/dearxjoe/cloudflared_mipsle_mips/releases"><img src="https://img.shields.io/github/downloads/dearxjoe/cloudflared_mipsle_mips/total">
 <a href="https://github.com/dearxjoe/cloudflared_mipsle_mips/graphs/contributors"><img src="https://img.shields.io/github/contributors-anon/dearxjoe/cloudflared_mipsle_mips">
