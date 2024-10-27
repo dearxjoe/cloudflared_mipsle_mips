@@ -58,7 +58,7 @@ jobs:
           /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-mips
           echo $(md5sum cloudflared-linux-mips | awk '{print $1;}') >MD5_cloudflared-linux-mips.txt
 
-          # dowload Alist V3.35.0 
+          # dowload Alist V3.38.0 
           wget https://github.com/alist-org/alist/releases/download/v3.38.0/alist-linux-mipsle.tar.gz
           tar -xvf alist-linux-mipsle.tar.gz
           mv alist alist_mipsle
