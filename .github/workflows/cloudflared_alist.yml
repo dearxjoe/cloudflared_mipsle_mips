@@ -58,8 +58,8 @@ jobs:
           /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-mips
           echo $(md5sum cloudflared-linux-mips | awk '{print $1;}') >MD5_cloudflared-linux-mips.txt
 
-          # dowload Alist V3.40.1 alist-linux-musl-mipsle.tar.gz
-          wget https://github.com/AlistGo/alist/releases/download/v3.40.1/alist-linux-musl-mipsle.tar.gz
+          # dowload Alist V3.41.0 alist-linux-musl-mipsle.tar.gz
+          wget https://github.com/AlistGo/alist/releases/download/v3.41.0/alist-linux-musl-mipsle.tar.gz
           tar -xvf alist-linux-musl-mipsle.tar.gz
           mv alist alist_mipsle
           /opt/st/strip alist_mipsle
@@ -78,7 +78,7 @@ jobs:
            > ### 编译时间 ：${{ env.build_time }}
 
            本项目编译出的cloudflared二进制文件已经过lzma压缩，比原官方编译出的文件体积小很多，适合路由器等低内存的linux环境运行。如老毛子padavan固件。
-           另外添加了alist v3.40.1版的mipsle架构的二进制文件，同样已压缩，比官方文件小，方便玩家使用。
+           另外添加了alist v3.41.0版的mipsle架构的二进制文件，同样已压缩，比官方文件小，方便玩家使用。
            
            **[cloudflared官方更新说明](https://github.com/cloudflare/cloudflared/releases)**
            **[Alist官方更新说明](https://github.com/alist-org/alist/releases)**
