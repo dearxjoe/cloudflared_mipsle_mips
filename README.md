@@ -11,7 +11,7 @@
 </p>
 
 本项目编译出的cloudflared二进制文件已经过lzma压缩，比原官方编译出的文件体积小很多，适合路由器等低内存的linux环境运行。如老毛子padavan固件。
-另外添加了alist v3.35.0版的mipsle架构的二进制文件，同样已压缩，比官方文件小，方便玩家使用。
+另外添加了alist v3.42.0版的mipsle架构的二进制文件，同样已压缩，比官方文件小，方便玩家使用。
            
  **[Cloudflared官方更新说明](https://github.com/cloudflare/cloudflared/releases)**
  
