@@ -17,9 +17,9 @@
  
  **[Alist官方更新说明](https://github.com/alist-org/alist/releases)**
 
- **[Openlist官方更新说明]([https://github.com/alist-org/alist/releases](https://github.com/OpenListTeam/OpenList/releases))**
+ **[Openlist官方更新说明](https://github.com/OpenListTeam/OpenList/releases)**
+
  
 Fork 于https://github.com/minetaro12/cloudflared-mipsle
-
 
 官方项目https://github.com/cloudflare/cloudflared
