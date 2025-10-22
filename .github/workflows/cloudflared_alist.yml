@@ -73,9 +73,9 @@ jobs:
           /opt/st/strip openlist_mipsle
           /opt/upx-3.95-amd64_linux/upx --lzma --best openlist_mipsle
           echo $(md5sum openlist_mipsle | awk '{print $1;}') >MD5_openlist_mipsle.txt
-		  
+
           echo "build_time=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
-                    
+
       - 
         name: Release
         uses: softprops/action-gh-release@v1
@@ -97,5 +97,5 @@ jobs:
               ../src/MD5_cloudflared-linux-mips.txt
               ../src/alist_mipsle
               ../src/MD5_alist_mipsle.txt
-			        ../src/openlist_mipsle
+			  ../src/openlist_mipsle
               ../src/MD5_openlist_mipsle.txt
