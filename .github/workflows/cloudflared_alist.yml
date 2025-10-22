@@ -66,7 +66,7 @@ jobs:
           /opt/upx-3.95-amd64_linux/upx --lzma --best alist_mipsle
           echo $(md5sum alist_mipsle | awk '{print $1;}') >MD5_alist_mipsle.txt
           
-		      # dowload Openlist V4.1.5 openlist-linux-musl-mipsle.tar.gz
+		  # dowload Openlist V4.1.5 openlist-linux-musl-mipsle.tar.gz
           wget https://github.com/OpenListTeam/OpenList/releases/download/v4.1.5/openlist-linux-musl-mipsle.tar.gz
           tar -xvf openlist-linux-musl-mipsle.tar.gz
           mv openlist openlist_mipsle
