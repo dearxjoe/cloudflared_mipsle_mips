@@ -97,5 +97,5 @@ jobs:
               ../src/MD5_cloudflared-linux-mips.txt
               ../src/alist_mipsle
               ../src/MD5_alist_mipsle.txt
-			  ../src/openlist_mipsle
+              ../src/openlist_mipsle
               ../src/MD5_openlist_mipsle.txt
