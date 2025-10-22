@@ -1,4 +1,4 @@
-name: Build CF_mipsle_mips,Alist_mipsle
+name: Build CF_mipsle_mips,Alist_mipsle，Openlist_mipsle
 on:
   schedule:
     - cron: '0 3 * * *'
@@ -66,9 +66,16 @@ jobs:
           /opt/upx-3.95-amd64_linux/upx --lzma --best alist_mipsle
           echo $(md5sum alist_mipsle | awk '{print $1;}') >MD5_alist_mipsle.txt
           
+		      # dowload Openlist V4.1.5 openlist-linux-musl-mipsle.tar.gz
+          wget https://github.com/OpenListTeam/OpenList/releases/download/v4.1.5/openlist-linux-musl-mipsle.tar.gz
+          tar -xvf openlist-linux-musl-mipsle.tar.gz
+          mv openlist openlist_mipsle
+          /opt/st/strip openlist_mipsle
+          /opt/upx-3.95-amd64_linux/upx --lzma --best openlist_mipsle
+          echo $(md5sum openlist_mipsle | awk '{print $1;}') >MD5_openlist_mipsle.txt
+		  
           echo "build_time=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
-          
-          
+                    
       - 
         name: Release
         uses: softprops/action-gh-release@v1
@@ -78,11 +85,11 @@ jobs:
            > ### 编译时间 ：${{ env.build_time }}
 
            本项目编译出的cloudflared二进制文件已经过lzma压缩，比原官方编译出的文件体积小很多，适合路由器等低内存的linux环境运行。如老毛子padavan固件。
-           另外添加了alist v3.42.0版的mipsle架构的二进制文件，同样已压缩，比官方文件小，方便玩家使用。
+           另外添加了alist v3.42.0版、Openlist V4.1.5版的mipsle架构的二进制文件，同样已压缩，比官方文件小，方便玩家使用。
            
            **[cloudflared官方更新说明](https://github.com/cloudflare/cloudflared/releases)**
            **[Alist官方更新说明](https://github.com/alist-org/alist/releases)**
-           
+           **[Openlist官方更新说明](https://github.com/OpenListTeam/OpenList/releases)**
           files: |
               ../src/cloudflared-linux-mipsle
               ../src/MD5_cloudflared-linux-mipsle.txt
@@ -90,3 +97,5 @@ jobs:
               ../src/MD5_cloudflared-linux-mips.txt
               ../src/alist_mipsle
               ../src/MD5_alist_mipsle.txt
+			        ../src/openlist_mipsle
+              ../src/MD5_openlist_mipsle.txt
