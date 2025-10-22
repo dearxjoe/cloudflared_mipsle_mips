@@ -80,8 +80,8 @@ if [ ! -s "$cloudflared" ] ; then
    [ ! -d /tmp/cloudflared ] && mkdir -p /tmp/cloudflared
    rm -rf /tmp/var/cfMD5.txt
    logger -t "【cloudflared】" "未找到$cloudflared ,开始下载"
-   curl -# -L -k -S -o  /tmp/var/cfMD5.txt --connect-timeout 10 --retry 3 https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/2024.10.1/MD5_cloudflared-linux-mipsle.txt
-   [ -s /tmp/var/cfMD5.txt ] && curl -# -L -k -S -o  "$cloudflared" --connect-timeout 10 --retry 3 "https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/2024.10.1/cloudflared-linux-mipsle"
+   curl -# -L -k -S -o  /tmp/var/cfMD5.txt --connect-timeout 10 --retry 3 https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/2025.10.0/MD5_cloudflared-linux-mipsle.txt
+   [ -s /tmp/var/cfMD5.txt ] && curl -# -L -k -S -o  "$cloudflared" --connect-timeout 10 --retry 3 "https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/2025.10.0/cloudflared-linux-mipsle"
    [ ! -s /tmp/var/cfMD5.txt ] && rm -rf "$cloudflared" && cf_dl
    if [ -s "$cloudflared" ] && [ -s /tmp/var/cfMD5.txt ] ; then
        chmod 777 "$cloudflared"
