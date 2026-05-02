@@ -17,5 +17,5 @@ jobs:
        uses: GitRML/delete-workflow-runs@main
        with:
         github_token: ${{ secrets.s2 }}
-        retain_days: 2
+        retain_days: 5
         keep_minimum_runs: 0
