@@ -46,10 +46,12 @@ jobs:
 
           # Build for mipsle
           GOOS=linux GOARCH=mipsle GOMIPS=softfloat make cloudflared
+          cp -a cloudflared cloudflared-linux-mipsle-max
           mv cloudflared cloudflared-linux-mipsle
           /opt/st/strip cloudflared-linux-mipsle
           /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-mipsle
           echo $(md5sum cloudflared-linux-mipsle | awk '{print $1;}') >MD5_cloudflared-linux-mipsle.txt
+          echo $(md5sum cloudflared-linux-mipsle-max | awk '{print $1;}') >MD5_cloudflared-linux-mipsle-max.txt
 
           # Build for mips
           GOOS=linux GOARCH=mips GOMIPS=softfloat make cloudflared
@@ -57,7 +59,7 @@ jobs:
           /opt/st/strip cloudflared-linux-mips
           /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-mips
           echo $(md5sum cloudflared-linux-mips | awk '{print $1;}') >MD5_cloudflared-linux-mips.txt
-
+         
           # dowload Alist V3.42.0 alist-linux-musl-mipsle.tar.gz
           wget https://github.com/AlistGo/alist/releases/download/v3.42.0/alist-linux-musl-mipsle.tar.gz
           tar -xvf alist-linux-musl-mipsle.tar.gz
@@ -90,7 +92,9 @@ jobs:
            **[cloudflared官方更新说明](https://github.com/cloudflare/cloudflared/releases)**
            **[Alist官方更新说明](https://github.com/alist-org/alist/releases)**
            **[Openlist官方更新说明](https://github.com/OpenListTeam/OpenList/releases)**
-          files: |
+          files: |            
+              ../src/cloudflared-linux-mipsle-max
+              ../src/MD5_cloudflared-linux-mipsle-max.txt
               ../src/cloudflared-linux-mipsle
               ../src/MD5_cloudflared-linux-mipsle.txt
               ../src/cloudflared-linux-mips
@@ -99,3 +103,4 @@ jobs:
               ../src/MD5_alist_mipsle.txt
               ../src/openlist_mipsle
               ../src/MD5_openlist_mipsle.txt
+                       
