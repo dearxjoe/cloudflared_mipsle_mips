@@ -61,7 +61,7 @@ jobs:
           echo $(md5sum cloudflared-linux-mips | awk '{print $1;}') >MD5_cloudflared-linux-mips.txt
 
           # Build for cloudflared-linux-arm
-          GOOS=linux GOARCH=arm  make cloudflared
+          GOOS=linux GOARCH=arm  go build -o cloudflared ./cmd/cloudflared
           cp -a cloudflared cloudflared-linux-arm-max
           mv cloudflared cloudflared-linux-arm    
           /opt/st/strip cloudflared-linux-arm
@@ -70,7 +70,7 @@ jobs:
           echo $(md5sum cloudflared-linux-arm-max | awk '{print $1;}') >MD5_cloudflared-linux-arm-max.txt
           
           # Build for cloudflared-linux-armhf
-          GOOS=linux GOARCH=armhf  make cloudflared
+          GOOS=linux GOARCH=armhf  go build -o cloudflared ./cmd/cloudflared
           cp -a cloudflared cloudflared-linux-armhf-max
           mv cloudflared cloudflared-linux-armhf    
           /opt/st/strip cloudflared-linux-armhf
@@ -79,7 +79,7 @@ jobs:
           echo $(md5sum cloudflared-linux-mipsle-marmhf | awk '{print $1;}') >MD5_cloudflared-linux-armhf-max.txt
           
           # Build for cloudflared-linux-arm64
-          GOOS=linux GOARCH=arm64  make cloudflared
+          GOOS=linux GOARCH=arm64  go build -o cloudflared ./cmd/cloudflared
           cp -a cloudflared cloudflared-linux-arm64-max
           mv cloudflared cloudflared-linux-arm64    
           /opt/st/strip cloudflared-linux-arm64
