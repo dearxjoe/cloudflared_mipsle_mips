@@ -61,13 +61,13 @@ jobs:
           echo $(md5sum cloudflared-linux-mips | awk '{print $1;}') >MD5_cloudflared-linux-mips.txt
 
           # Build for cloudflared-linux-arm
-          GOOS=linux GOARCH=arm  go build -o cloudflared ./cmd/cloudflared
-          cp -a cloudflared cloudflared-linux-arm-max
-          mv cloudflared cloudflared-linux-arm    
-          /opt/st/strip cloudflared-linux-arm
-          /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-arm
-          echo $(md5sum cloudflared-linux-arm | awk '{print $1;}') >MD5_cloudflared-linux-arm.txt
-          echo $(md5sum cloudflared-linux-arm-max | awk '{print $1;}') >MD5_cloudflared-linux-arm-max.txt
+          #GOOS=linux GOARCH=arm  go build -o cloudflared ./cmd/cloudflared
+          #cp -a cloudflared cloudflared-linux-arm-max
+          #mv cloudflared cloudflared-linux-arm    
+          #/opt/st/strip cloudflared-linux-arm
+          #/opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-arm
+          #echo $(md5sum cloudflared-linux-arm | awk '{print $1;}') >MD5_cloudflared-linux-arm.txt
+          #echo $(md5sum cloudflared-linux-arm-max | awk '{print $1;}') >MD5_cloudflared-linux-arm-max.txt
           
           # Build for cloudflared-linux-armhf
           GOOS=linux GOARCH=armhf  go build -o cloudflared ./cmd/cloudflared
@@ -124,10 +124,10 @@ jobs:
               ../src/MD5_cloudflared-linux-mipsle-max.txt
               ../src/cloudflared-linux-mipsle
               ../src/MD5_cloudflared-linux-mipsle.txt
-              ../src/cloudflared-linux-arm-max
-              ../src/MD5_cloudflared-linux-arm-max.txt
-              ../src/cloudflared-linux-arm
-              ../src/MD5_cloudflared-linux-arm.txt
+              #../src/cloudflared-linux-arm-max
+              #../src/MD5_cloudflared-linux-arm-max.txt
+              #../src/cloudflared-linux-arm
+              #../src/MD5_cloudflared-linux-arm.txt
               ../src/cloudflared-linux-armhf-max
               ../src/MD5_cloudflared-linux-armhf-max.txt
               ../src/cloudflared-linux-armhf
