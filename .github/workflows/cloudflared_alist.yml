@@ -45,7 +45,7 @@ jobs:
           chmod 777 /opt/st/strip
 
           # Build for mipsle
-          GOOS=linux GOARCH=mipsle GOMIPS=softfloat make cloudflared
+          GOOS=linux GOARCH=mipsle GOMIPS=softfloat CGO_ENABLED=0 go build -ldflags="-s -w" -o cloudflared ./cmd/cloudflared
           cp -a cloudflared cloudflared-linux-mipsle-max
           mv cloudflared cloudflared-linux-mipsle
           /opt/st/strip cloudflared-linux-mipsle
