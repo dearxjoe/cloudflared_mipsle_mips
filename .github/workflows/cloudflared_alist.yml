@@ -77,7 +77,7 @@ jobs:
           echo $(md5sum openlist_mipsle | awk '{print $1;}') >MD5_openlist_mipsle.txt
 
           # dowload cloudflared-linux-arm
-          wget https://github.com/cloudflare/cloudflared/releases/download/${ver}/cloudflared-linux-arm
+          wget https://github.com/cloudflare/cloudflared/releases/download/${{ needs.check.outputs.ver }}/cloudflared-linux-arm
           cp -a cloudflared-linux-arm cloudflared-linux-arm-max         
           /opt/st/strip cloudflared-linux-arm
           /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-arm
@@ -85,7 +85,7 @@ jobs:
           echo $(md5sum cloudflared-linux-arm-max | awk '{print $1;}') >MD5_cloudflared-linux-arm-max.txt
           
           # dowload cloudflared-linux-armhf
-          wget https://github.com/cloudflare/cloudflared/releases/download/${ver}/cloudflared-linux-armhf
+          wget https://github.com/cloudflare/cloudflared/releases/download/${{ needs.check.outputs.ver }}/cloudflared-linux-armhf
           cp -a cloudflared-linux-armhf cloudflared-linux-armhf-max         
           /opt/st/strip cloudflared-linux-armhf
           /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-armhf
@@ -93,7 +93,7 @@ jobs:
           echo $(md5sum cloudflared-linux-armhf-max | awk '{print $1;}') >MD5_cloudflared-linux-armhf-max.txt          
           
           # dowload cloudflared-linux-arm64
-          wget https://github.com/cloudflare/cloudflared/releases/download/${ver}/cloudflared-linux-arm64
+          wget https://github.com/cloudflare/cloudflared/releases/download/${{ needs.check.outputs.ver }}/cloudflared-linux-arm64
           cp -a cloudflared-linux-arm64 cloudflared-linux-arm64-max         
           /opt/st/strip cloudflared-linux-arm64
           /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-arm64
