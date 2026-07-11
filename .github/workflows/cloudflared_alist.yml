@@ -30,7 +30,7 @@ jobs:
         name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.24.0
+          go-version: 1.26.0
       -
         name: Checkout
         uses: actions/checkout@v3
@@ -76,6 +76,31 @@ jobs:
           /opt/upx-3.95-amd64_linux/upx --lzma --best openlist_mipsle
           echo $(md5sum openlist_mipsle | awk '{print $1;}') >MD5_openlist_mipsle.txt
 
+          # dowload cloudflared-linux-arm
+          wget https://github.com/cloudflare/cloudflared/releases/download/${{ needs.check.outputs.ver }}/cloudflared-linux-arm
+          cp -a cloudflared-linux-arm cloudflared-linux-arm-max         
+          /opt/st/strip cloudflared-linux-arm
+          /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-arm
+          echo $(md5sum cloudflared-linux-arm | awk '{print $1;}') >MD5_cloudflared-linux-arm.txt
+          echo $(md5sum cloudflared-linux-arm-max | awk '{print $1;}') >MD5_cloudflared-linux-arm-max.txt
+          
+          # dowload cloudflared-linux-armhf
+          wget https://github.com/cloudflare/cloudflared/releases/download/${{ needs.check.outputs.ver }}/cloudflared-linux-armhf
+          cp -a cloudflared-linux-armhf cloudflared-linux-armhf-max         
+          /opt/st/strip cloudflared-linux-armhf
+          /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-armhf
+          echo $(md5sum cloudflared-linux-armhf | awk '{print $1;}') >MD5_cloudflared-linux-armhf.txt
+          echo $(md5sum cloudflared-linux-armhf-max | awk '{print $1;}') >MD5_cloudflared-linux-armhf-max.txt          
+          
+          # dowload cloudflared-linux-arm64
+          wget https://github.com/cloudflare/cloudflared/releases/download/${{ needs.check.outputs.ver }}/cloudflared-linux-arm64
+          cp -a cloudflared-linux-arm64 cloudflared-linux-arm64-max         
+          /opt/st/strip cloudflared-linux-arm64
+          /opt/upx-3.95-amd64_linux/upx --lzma --best cloudflared-linux-arm64
+          echo $(md5sum cloudflared-linux-arm64 | awk '{print $1;}') >MD5_cloudflared-linux-arm64.txt
+          echo $(md5sum cloudflared-linux-arm64-max | awk '{print $1;}') >MD5_cloudflared-linux-arm64-max.txt
+          
+
           echo "build_time=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
 
       - 
@@ -103,4 +128,15 @@ jobs:
               ../src/MD5_alist_mipsle.txt
               ../src/openlist_mipsle
               ../src/MD5_openlist_mipsle.txt
-                       
+              ../src/cloudflared-linux-arm
+              ../src/MD5_cloudflared-linux-arm.txt
+              ../src/cloudflared-linux-arm-max
+              ../src/MD5_cloudflared-linux-arm-max.txt
+              ../src/cloudflared-linux-armhf
+              ../src/MD5_cloudflared-linux-armhf.txt
+              ../src/cloudflared-linux-armhf-max
+              ../src/MD5_cloudflared-linux-armhf-max.txt
+              ../src/cloudflared-linux-arm64
+              ../src/MD5_cloudflared-linux-arm64.txt
+              ../src/cloudflared-linux-arm64-max
+              ../src/MD5_cloudflared-linux-arm64-max.txt
