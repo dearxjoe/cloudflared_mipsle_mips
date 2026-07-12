@@ -120,7 +120,7 @@ logger -t "【cloudflared】" "cloudflared_$ver 准备启动"
 eval "$cmd" &
 sleep 10
 [ ! -z "`pidof cloudflared`" ] && logger -t "【cloudflared】" "cloudflared_$ver 启动成功" && logger -t "【cloudflared】" "添加配置请前往 https://one.dash.cloudflare.com/access/tunnels "
-[ -z "`pidof cloudflared`" ] && logger -t "【cloudflared】" "cloudflared启动失败,20 秒后自动尝试重新启动" && cf_dl
+[ -z "`pidof cloudflared`" ] && logger -t "【cloudflared】" "cloudflared启动失败,20 秒后自动尝试重新启动" && cf_dl && exit 0
 cf_keep
 exit 0
 }
