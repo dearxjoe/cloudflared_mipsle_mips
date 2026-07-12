@@ -15,7 +15,7 @@ token="eyJhIjoiYjZkMTFhYWRjZmY2MWNmNDJjNzNmOTkyNzk5Y2ViNzMiLCJ0Ijoi.............
 # 1. 动态获取你仓库的最新 Release 版本号（利用 sed 兼容没有 jq 的老路由器系统）
 latest_version=$(curl -s https://api.github.com/repos/dearxjoe/cloudflared_mipsle_mips/releases/latest | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')
 # 2. 如果获取失败，则保底使用一个固定版本号，防止变量为空导致链接报错
-[ -z "$latest_version" ] && latest_version="2026.03.0"
+[ -z "$latest_version" ] && latest_version="2026.3.0"
 
 upanPath="`df -m | grep /dev/mmcb | grep -E "$(echo $(/usr/bin/find /dev/ -name 'mmcb*') | sed -e 's@/dev/ /dev/@/dev/@g' | sed -e 's@ @|@g')" | grep "/media" | awk '{print $NF}' | sort -u | awk 'NR==1' `"
 [ -z "$upanPath" ] && upanPath="`df -m | grep /dev/sd | grep -E "$(echo $(/usr/bin/find /dev/ -name 'sd*') | sed -e 's@/dev/ /dev/@/dev/@g' | sed -e 's@ @|@g')" | grep "/media" | awk '{print $NF}' | sort -u | awk 'NR==1' `"
