@@ -37,12 +37,13 @@ jobs:
       - 
         name: Build
         run: |
-          git clone https://github.com/cloudflare/cloudflared -b ${{ needs.check.outputs.ver }} ../src
+          git clone https://github.com/cloudflare/cloudflared -b ${{ needs.check.outputs.ver }} ${{ github.workspace }}/src
           git clone https://github.com/dearxjoe/cloudflared_mipsle_mips.git /opt/st
           cd ../src
           tar -xvf /opt/st/upx-3.95-amd64_linux.tar.xz -C /opt
           chmod 777 /opt/upx-3.95-amd64_linux/upx
           chmod 777 /opt/st/strip
+          ls -la ../src/
 
           # Build for mipsle
           GOOS=linux GOARCH=mipsle GOMIPS=softfloat CGO_ENABLED=0 go build -ldflags="-s -w" -o cloudflared ./cmd/cloudflared
@@ -118,25 +119,25 @@ jobs:
            **[Alist官方更新说明](https://github.com/alist-org/alist/releases)**
            **[Openlist官方更新说明](https://github.com/OpenListTeam/OpenList/releases)**
           files: |            
-              ../src/cloudflared-linux-mipsle-max
-              ../src/MD5_cloudflared-linux-mipsle-max.txt
-              ../src/cloudflared-linux-mipsle
-              ../src/MD5_cloudflared-linux-mipsle.txt
-              ../src/cloudflared-linux-mips
-              ../src/MD5_cloudflared-linux-mips.txt
-              ../src/alist_mipsle
-              ../src/MD5_alist_mipsle.txt
-              ../src/openlist_mipsle
-              ../src/MD5_openlist_mipsle.txt
-              ../src/cloudflared-linux-arm
-              ../src/MD5_cloudflared-linux-arm.txt
-              ../src/cloudflared-linux-arm-max
-              ../src/MD5_cloudflared-linux-arm-max.txt
-              ../src/cloudflared-linux-armhf
-              ../src/MD5_cloudflared-linux-armhf.txt
-              ../src/cloudflared-linux-armhf-max
-              ../src/MD5_cloudflared-linux-armhf-max.txt
-              ../src/cloudflared-linux-arm64
-              ../src/MD5_cloudflared-linux-arm64.txt
-              ../src/cloudflared-linux-arm64-max
-              ../src/MD5_cloudflared-linux-arm64-max.txt
+              ${{ github.workspace }}/../src/cloudflared-linux-mipsle-max
+              ${{ github.workspace }}/../src/MD5_cloudflared-linux-mipsle-max.txt
+              ${{ github.workspace }}/../src/cloudflared-linux-mipsle
+              ${{ github.workspace }}/../src/MD5_cloudflared-linux-mipsle.txt
+              ${{ github.workspace }}/../src/cloudflared-linux-mips
+              ${{ github.workspace }}/../src/MD5_cloudflared-linux-mips.txt
+              ${{ github.workspace }}/../src/alist_mipsle
+              ${{ github.workspace }}/../src/MD5_alist_mipsle.txt
+              ${{ github.workspace }}/../src/openlist_mipsle
+              ${{ github.workspace }}/../src/MD5_openlist_mipsle.txt
+              ${{ github.workspace }}/../src/cloudflared-linux-arm
+              ${{ github.workspace }}/../src/MD5_cloudflared-linux-arm.txt
+              ${{ github.workspace }}/../src/cloudflared-linux-arm-max
+              ${{ github.workspace }}/../src/MD5_cloudflared-linux-arm-max.txt
+              ${{ github.workspace }}/../src/cloudflared-linux-armhf
+              ${{ github.workspace }}/../src/MD5_cloudflared-linux-armhf.txt
+              ${{ github.workspace }}/../src/cloudflared-linux-armhf-max
+              ${{ github.workspace }}/../src/MD5_cloudflared-linux-armhf-max.txt
+              ${{ github.workspace }}/../src/cloudflared-linux-arm64
+              ${{ github.workspace }}/../src/MD5_cloudflared-linux-arm64.txt
+              ${{ github.workspace }}/../src/cloudflared-linux-arm64-max
+              ${{ github.workspace }}/../src/MD5_cloudflared-linux-arm64-max.txt
