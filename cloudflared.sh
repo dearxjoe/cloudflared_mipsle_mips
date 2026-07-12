@@ -12,6 +12,11 @@
 
 token="eyJhIjoiYjZkMTFhYWRjZmY2MWNmNDJjNzNmOTkyNzk5Y2ViNzMiLCJ0Ijoi.........................."
 
+# 1. 动态获取你仓库的最新 Release 版本号（利用 sed 兼容没有 jq 的老路由器系统）
+latest_version=$(curl -s https://api.github.com/repos/dearxjoe/cloudflared_mipsle_mips/releases/latest | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')
+# 2. 如果获取失败，则保底使用一个固定版本号，防止变量为空导致链接报错
+[ -z "$latest_version" ] && latest_version="2026.03.0"
+
 upanPath="`df -m | grep /dev/mmcb | grep -E "$(echo $(/usr/bin/find /dev/ -name 'mmcb*') | sed -e 's@/dev/ /dev/@/dev/@g' | sed -e 's@ @|@g')" | grep "/media" | awk '{print $NF}' | sort -u | awk 'NR==1' `"
 [ -z "$upanPath" ] && upanPath="`df -m | grep /dev/sd | grep -E "$(echo $(/usr/bin/find /dev/ -name 'sd*') | sed -e 's@/dev/ /dev/@/dev/@g' | sed -e 's@ @|@g')" | grep "/media" | awk '{print $NF}' | sort -u | awk 'NR==1' `"
 if [ -z "$upanPath" ] ; then
@@ -79,9 +84,9 @@ rm -rf /etc/init.d/cloudflared && ln -sf /etc/storage/cloudflared/lib/cloudflare
 if [ ! -s "$cloudflared" ] ; then
    [ ! -d /tmp/cloudflared ] && mkdir -p /tmp/cloudflared
    rm -rf /tmp/var/cfMD5.txt
-   logger -t "【cloudflared】" "未找到$cloudflared ,开始下载"
-   curl -# -L -k -S -o  /tmp/var/cfMD5.txt --connect-timeout 10 --retry 3 https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/2025.10.0/MD5_cloudflared-linux-mipsle.txt
-   [ -s /tmp/var/cfMD5.txt ] && curl -# -L -k -S -o  "$cloudflared" --connect-timeout 10 --retry 3 "https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/2025.10.0/cloudflared-linux-mipsle"
+   logger -t "【cloudflared】" "未找到$cloudflared ,最新版本为 $latest_version，开始下载"
+   curl -# -L -k -S -o  /tmp/var/cfMD5.txt --connect-timeout 10 --retry 3 https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/$latest_version/MD5_cloudflared-linux-mipsle.txt
+   [ -s /tmp/var/cfMD5.txt ] && curl -# -L -k -S -o  "$cloudflared" --connect-timeout 10 --retry 3 "https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/$latest_version/cloudflared-linux-mipsle"
    [ ! -s /tmp/var/cfMD5.txt ] && rm -rf "$cloudflared" && cf_dl
    if [ -s "$cloudflared" ] && [ -s /tmp/var/cfMD5.txt ] ; then
        chmod 777 "$cloudflared"
