@@ -39,23 +39,22 @@ F="$D/`nvram get http_username`"
 
 cf_keep () {
 logger -t "【cloudflared】" "守护进程启动"
-if [ -s /etc_ro/script.tgz ] ; then 
-if [ -s /tmp/script/_opt_script_check ]; then
-sed -Ei '/【cloudflared】|^$/d' /tmp/script/_opt_script_check
-cat >> "/tmp/script/_opt_script_check" <<-OSC
-        [ -z "\`pidof cloudflared\`" ]  && logger -t "【cloudflared】" "重新启动" && eval "$scriptfilepath &" && sed -Ei '/【cloudflared】|^$/d' /tmp/script/_opt_script_check # 【cloudflared】
+if [ -s /etc_ro/script.tgz ] ; then
+    if [ -s /tmp/script/_opt_script_check ]; then
+        sed -Ei '/【cloudflared】|^$/d' /tmp/script/_opt_script_check
+        cat >> "/tmp/script/_opt_script_check" <<-OSC
+        [ -z "\$(pidof cloudflared)" ] && logger -t "【cloudflared】" "重新启动" && eval "\$scriptfilepath &" && sed -Ei '/【cloudflared】|^$/d' /tmp/script/_opt_script_check
+# 【cloudflared】
 OSC
-sed -Ei '/cloudflared开机自启|^$/d' /etc/storage/started_script.sh
-cat >> "/etc/storage/started_script.sh" <<-OSC
-
+        sed -Ei '/cloudflared开机自启|^$/d' /etc/storage/started_script.sh
+        cat >> "/etc/storage/started_script.sh" <<-OSC
 /etc/storage/cloudflared.sh start & #cloudflared开机自启
-
 OSC
-fi
+    fi
 else
-sed -Ei '/cloudflared守护进程|^$/d' "$F"
-cat >> "$F" <<-OSC
-*/1 * * * * test -z "\`pidof cloudflared\`"  && /etc/storage/cloudflared.sh restart #cloudflared守护进程
+    sed -Ei '/cloudflared守护进程|^$/d' "$F"
+    cat >> "$F" <<-OSC
+*/1 * * * * test -z "\$(pidof cloudflared)" && /etc/storage/cloudflared.sh restart #cloudflared守护进程
 OSC
 fi
 }
@@ -81,17 +80,17 @@ fi
 [ ! -d /etc/init.d ] && mkdir -p /etc/init.d
 [ ! -f /etc/storage/cloudflared/lib/cloudflared ] && touch /etc/storage/cloudflared/lib/cloudflared
 rm -rf /etc/init.d/cloudflared && ln -sf /etc/storage/cloudflared/lib/cloudflared /etc/init.d/cloudflared
-   if [ ! -s "$cloudflared" ] ; then
-        [ ! -d /tmp/cloudflared ] && mkdir -p /tmp/cloudflared
-        rm -rf /tmp/var/cfMD5.txt
-        logger -t "【cloudflared】" "未找到$cloudflared ,最新版本为 $latest_version，开始下载"
-        
-        # 注意全角引号
-        curl -# -L -k -S -o /tmp/var/cfMD5.txt --connect-timeout 10 --retry 3 "https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/$latest_version/MD5_cloudflared-linux-mipsle.txt"
-        [ -s /tmp/var/cfMD5.txt ] && curl -# -L -k -S -o "$cloudflared" --connect-timeout 10 --retry 3 "https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/$latest_version/cloudflared-linux-mipsle"
-        
-        # 修复死循环，加入 exit 0
-        [ ! -s /tmp/var/cfMD5.txt ] && rm -rf "$cloudflared" && cf_dl && exit 0
+        if [ ! -s "$cloudflared" ] ; then
+    [ ! -d /tmp/cloudflared ] && mkdir -p /tmp/cloudflared
+    rm -rf /tmp/var/cfMD5.txt
+    logger -t "【cloudflared】" "未找到$cloudflared ,最新版本为 $latest_version，开始下载"
+    
+    # 【已修复】移除了 $latest_version 变量左右的多余空格
+    curl -# -L -k -S -o /tmp/var/cfMD5.txt --connect-timeout 10 --retry 3 "https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/$latest_version/MD5_cloudflared-linux-mipsle.txt"
+    [ -s /tmp/var/cfMD5.txt ] && curl -# -L -k -S -o "$cloudflared" --connect-timeout 10 --retry 3 "https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/$latest_version/cloudflared-linux-mipsle"
+    
+    # 修复死循环，加入 exit 0
+    [ ! -s /tmp/var/cfMD5.txt ] && rm -rf "$cloudflared" && cf_dl && exit 0
         
         if [ -s "$cloudflared" ] && [ -s /tmp/var/cfMD5.txt ] ; then
             chmod 777 "$cloudflared"
