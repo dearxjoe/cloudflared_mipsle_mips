@@ -85,7 +85,7 @@ if [ ! -s "$cloudflared" ] ; then
    [ ! -d /tmp/cloudflared ] && mkdir -p /tmp/cloudflared
    rm -rf /tmp/var/cfMD5.txt
    logger -t "【cloudflared】" "未找到$cloudflared ,最新版本为 $latest_version，开始下载"
-   curl -# -L -k -S -o  /tmp/var/cfMD5.txt --connect-timeout 10 --retry 3 “https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/$latest_version/MD5_cloudflared-linux-mipsle.txt”
+   curl -# -L -k -S -o  /tmp/var/cfMD5.txt --connect-timeout 10 --retry 3 "https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/$latest_version/MD5_cloudflared-linux-mipsle.txt”
    [ -s /tmp/var/cfMD5.txt ] && curl -# -L -k -S -o  "$cloudflared" --connect-timeout 10 --retry 3 "https://github.com/dearxjoe/cloudflared_mipsle_mips/releases/download/$latest_version/cloudflared-linux-mipsle"
    [ ! -s /tmp/var/cfMD5.txt ] && rm -rf "$cloudflared" && cf_dl
    if [ -s "$cloudflared" ] && [ -s /tmp/var/cfMD5.txt ] ; then
@@ -93,13 +93,13 @@ if [ ! -s "$cloudflared" ] ; then
        cfmd5="$(cat /tmp/var/cfMD5.txt)"
        echo "$cfmd5"
        eval $(md5sum "$cloudflared" | awk '{print "MD5_down="$1;}') && echo "$MD5_down"
-       if [ "$cfmd5"x = "$MD5_down"x ] ; then
-            logger -t "【cloudflared】" "程序下载完成，MD5匹配，开始安装至$cloudflared "
-       else
-            tar -xzvf /tmp/cloudflared/cloudflared.tar.gz -C /tmp/cloudflared
-            [ ! -s "$cloudflared" ] && logger -t "【cloudflared】" "程序下载完成，MD5不匹配，删除..."
-            rm -rf "$cloudflared" /tmp/var/cfMD5.txt
-       fi
+        if [ "$cfmd5"x = "$MD5_down"x ] ; then
+    logger -t "【cloudflared】" "程序下载完成，MD5匹配，开始安装至$cloudflared"
+        else
+    # MD5 不匹配时，直接记录日志并清理错误文件，删掉错误的 tar 解压命令
+    logger -t "【cloudflared】" "程序下载完成，但MD5不匹配，正在删除错误文件..."
+    rm -rf "$cloudflared" /tmp/var/cfMD5.txt
+        fi
    else
        rm -rf "$cloudflared" && logger -t "【cloudflared】" "下载程序不完整，删除重新下载"
    fi
