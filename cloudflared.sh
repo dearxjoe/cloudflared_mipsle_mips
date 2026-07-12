@@ -42,19 +42,20 @@ logger -t "【cloudflared】" "守护进程启动"
 if [ -s /etc_ro/script.tgz ] ; then
     if [ -s /tmp/script/_opt_script_check ]; then
         sed -Ei '/【cloudflared】|^$/d' /tmp/script/_opt_script_check
-        cat >> "/tmp/script/_opt_script_check" <<-OSC
-        [ -z "\$(pidof cloudflared)" ] && logger -t "【cloudflared】" "重新启动" && eval "\$scriptfilepath &" && sed -Ei '/【cloudflared】|^$/d' /tmp/script/_opt_script_check
+        # 通过给 'OSC' 加单引号，内部的 $ 和 () 将会原样写入文件，不再需要反斜杠转义
+        cat >> "/tmp/script/_opt_script_check" <<-'OSC'
+        [ -z "$(pidof cloudflared)" ] && logger -t "【cloudflared】" "重新启动" && eval "$scriptfilepath &" && sed -Ei '/【cloudflared】|^$/d' /tmp/script/_opt_script_check
 # 【cloudflared】
 OSC
         sed -Ei '/cloudflared开机自启|^$/d' /etc/storage/started_script.sh
-        cat >> "/etc/storage/started_script.sh" <<-OSC
+        cat >> "/etc/storage/started_script.sh" <<-'OSC'
 /etc/storage/cloudflared.sh start & #cloudflared开机自启
 OSC
     fi
 else
     sed -Ei '/cloudflared守护进程|^$/d' "$F"
-    cat >> "$F" <<-OSC
-*/1 * * * * test -z "\$(pidof cloudflared)" && /etc/storage/cloudflared.sh restart #cloudflared守护进程
+    cat >> "$F" <<-'OSC'
+*/1 * * * * test -z "$(pidof cloudflared)" && /etc/storage/cloudflared.sh restart #cloudflared守护进程
 OSC
 fi
 }
