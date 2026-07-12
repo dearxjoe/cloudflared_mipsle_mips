@@ -10,6 +10,7 @@ jobs:
     outputs:
       ver: ${{ steps.getversion.outputs.ver }}
       cver: ${{ steps.getversion.outputs.cver }}
+      olver: ${{ steps.getversion.outputs.olver }}
     steps:
       -
         name: Get version
@@ -72,7 +73,7 @@ jobs:
           echo $(md5sum alist_mipsle | awk '{print $1;}') >MD5_alist_mipsle.txt
           
           # dowload Openlist 最新版 openlist-linux-musl-mipsle.tar.gz
-          wget https://github.com/OpenListTeam/OpenList/releases/download/${olver}/openlist-linux-musl-mipsle.tar.gz
+          wget https://github.com/OpenListTeam/OpenList/releases/download/${{ needs.check.outputs.olver }}/openlist-linux-musl-mipsle.tar.gz
           tar -xvf openlist-linux-musl-mipsle.tar.gz
           mv openlist openlist_mipsle
           /opt/st/strip openlist_mipsle
