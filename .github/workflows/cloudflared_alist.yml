@@ -119,7 +119,7 @@ jobs:
            > ### 编译时间 ：${{ env.build_time }}
 
            本项目编译出的cloudflared二进制文件已经过lzma压缩，比原官方编译出的文件体积小很多，适合路由器等低内存的linux环境运行。如老毛子padavan固件（MTK-7621路由器选linux-mipsle参数 ）。
-           另外添加了alist v3.42.0版、Openlist 最新版的mipsle架构的二进制文件，同样已压缩，比官方文件小，方便玩家使用。注：-max 表示原版，无-max都是已压缩文件。
+           另外添加了alist v3.42.0版、Openlist ${{ needs.check.outputs.olver }}版的mipsle架构的二进制文件，同样已压缩，比官方文件小，方便玩家使用。注：-max 表示原版，无-max都是已压缩文件。
            
            **[cloudflared官方更新说明](https://github.com/cloudflare/cloudflared/releases)**
            **[Alist官方更新说明](https://github.com/alist-org/alist/releases)**
