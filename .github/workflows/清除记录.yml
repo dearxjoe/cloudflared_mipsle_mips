@@ -1,21 +1,25 @@
-name: 清除记录
+name: 清除历史运行记录
 
 on:
   schedule:
-    - cron: '0 3 * * *'
-  workflow_dispatch:
-jobs:
+    - cron: '0 0 * * 0'  # 每周日 00:00 运行
+  workflow_dispatch:      # 允许手动触发
 
-  build:
+jobs:
+  delete-runs:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write      # 删除 workflow 运行记录所需的权限[reference:4]
+      contents: read      # 读取仓库内容所需的权限[reference:5]
+
     steps:
-      -
-        name: 检查代码仓库
-        uses: actions/checkout@v4
-      - 
-       name: 删除工作流
-       uses: GitRML/delete-workflow-runs@main
-       with:
-        token: ${{ secrets.s2 }}
-        retain_days: 5
-        keep_minimum_runs: 0
+      - name: 检出代码
+        uses: actions/checkout@v4  # 升级到 v4，消除 Node.js 警告[reference:6]
+
+      - name: 删除旧的 Workflow 运行记录
+        uses: GitRML/delete-workflow-runs@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # 修正参数名：github_token -> token
+          repository: ${{ github.repository }}
+          retain_days: 7                     # 保留最近 7 天的记录
+          keep_minimum_runs: 10              # 至少保留最近 10 条记录
